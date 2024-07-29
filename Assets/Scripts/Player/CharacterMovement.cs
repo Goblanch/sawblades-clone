@@ -18,12 +18,15 @@ namespace Goblanch {
         [SerializeField] private Vector2 groundCheckSize;
 
         private Rigidbody2D rb;
-        private Animator anim;
+        [HideInInspector] public Animator anim;
         private float _moveDirection;
         private bool _isJumping;
         private bool _canJump = true;
+        private bool _isMoving;
         [SerializeField] private bool _isGrounded;
         private float _currentJumpHoldTime = 0;
+
+        public bool IsMoving { get { return _isMoving; } }
 
         private void OnDrawGizmos() {
             Gizmos.color = Color.red;
@@ -46,8 +49,10 @@ namespace Goblanch {
 
             if(moveAxis != 0) {
                 anim.SetBool("Walking", true);
+                _isMoving = true;
             } else {
                 anim.SetBool("Walking", false);
+                _isMoving = false;
             }
         }
 

@@ -5,16 +5,24 @@ using UnityEngine;
 
 
 namespace Goblanch {
-    public class PlayerController : MonoBehaviour {
+    public class PlayerController : GenericController {
         [SerializeField] private InputReader input;
-        [SerializeField] private CharacterMovement movement;
+        public CharacterMovement movement;
+        public Animator anim;
 
         [SerializeField] private float speed;
         [SerializeField] private float jumpSpeed;
 
         private bool _isJumping;
 
+        private void Awake() {
+            anim = GetComponent<Animator>();
+        }
+
         private void Start() {
+
+            base.OnStart();
+
             input.MoveEvent += movement.HandleMove;
 
             input.JumpEvent += movement.HandleJump;
